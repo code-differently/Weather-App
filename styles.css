@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+.currentWeather{
+    font-size: 2.5rem;
+}
+.container{
+    width: 70%;
+    margin: 5rem auto;
+}
+.currentWeatherDiv{
+    display: flex;
+    flex-direction: row;
+}
+.placeName{
+    margin: auto 0;
+}
+.main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
+}
+.weatherRange{
+    display: flex;
+    justify-content: space-evenly;
+}
+.futureWeather{
+    text-align: center;
+}

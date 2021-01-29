@@ -18,14 +18,18 @@ weekday[5] = "Friday";
 weekday[6] = "Saturday";
 //get browser's location
 const getBrowsersLocation = async () => {
-    navigator.geolocation.getCurrentPosition(passLocation, console.log);
+    navigator.geolocation.getCurrentPosition(passLocation, error);
+    
 }
+function error(){
+    placeName.innerText = "please enable location";
+}
+
 //
 const passLocation = async (position) => {
     try{
         const {latitude, longitude} = position.coords;
         const res = await axios.get(`http://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${APILocationKey}`);
-        console.log(res.data.results);
         const {data: 
                 {results:
                    [{components: 
@@ -73,9 +77,10 @@ function convertDate ({date, min, max, icon }){
 }
 
 function showDay({day, min,max,icon},index){
-       // console.log(day)
         futureDates[index].innerText = day;
         icons[index].src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
         minWeather[index].innerText = Math.trunc(min);
         maxWeather[index].innerText = Math.trunc(max);
 }
+
+getBrowsersLocation();

@@ -21,33 +21,36 @@ weekday[4] = "Thursday";
 weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
-let inputZipCode = 19801;
-
 const getLocation = async () => {
+    navigator.geolocation.getCurrentPosition(getBrowserLocation, console.log);
+}
+
+const getBrowserLocation = async (position) => {
     try{
-        const res = await axios.get(`http://api.zippopotam.us/us/${inputZipCode}`);
+        const {latitude, longitude} = position.coords;
+        const res = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${APILocationKey}`);
+        console.log(res.data.results);
         const {data: 
-                {places :
-                    [{'place name': placeName, 'state abbreviation': state, longitude: lon, latitude: lat}]
-                }}=  res;
-        place.innerHTML = `${placeName}, ${state}`;
-        getWeather(lon, lat);
-    }
-    catch(e){
+                {results:
+                   [{components: 
+                        {city: city, "state_code": stateCode}}] }} = res;
+        place.innerHTML = `${city}, ${stateCode}`;
+        getWeather(longitude, latitude);
+    }catch(e){
         console.log(e);
     }
 }
 
-const getWeather = async (lon, lat) => {
-    try{
-        const res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${APIKey}`);
+const getWeather = async (longitude, latitude) => {
+    try {
+        const res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=imperial&appid=${APIKey}`);
 
         getCurrentWeather(res);
 
         getDailyWeather(res);
     }
 
-    catch(e){
+    catch (e) {
         console.log(e);
     }
 }
@@ -92,4 +95,3 @@ function showDay({day, min,max,icon},index){
         currentMax.innerText = Math.trunc(max);
    // futureDates[index].innerText = `${day} ${min} ${max}`;
 }
-getLocation();

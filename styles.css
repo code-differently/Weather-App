@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 .header{
     display: flex;
@@ -22,6 +23,9 @@
 .main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
+}
+.min{
+    color: grey; 
 }
 .weatherRange{
     display: flex;

@@ -69,7 +69,8 @@ weatherDataSimple.onreadystatechange = () => {
             : icon == 'rain' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/rain.png">`
             : icon == 'lightrain' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/rain_light.png">`
             : icon == 'thunderstorm' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/thunderstorms.png">`
-            : icon == 'windy' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/fog.png">`
+            : icon == 'foggy' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/fog.png">`
+            : icon == 'windy' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/windy.png">`
             : icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/cloudy.png">`; //else cloudy
             console.log(`http://www.7timer.info/bin/api.pl?lon=${longitude}&lat=${latitude}&product=civillight&output=json`);
             forecast += `<div id="day${i+1}" class="day">

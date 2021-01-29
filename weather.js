@@ -1,32 +1,50 @@
-// https://api.zippopotam.us/us/90210
-// {"post code": "90210", "country": "United States", 
-//"country abbreviation": "US", 
-//"places": [{"place name": "Beverly Hills", "longitude": "-118.4065", "state": "California", "state abbreviation": "CA", "latitude": "34.0901"}]}
+// gets user coordinates from navigator.geolocation
+    // uses coordinates to get weather for that location
+// if user does not share location, asks user for zipcode
+    // uses zipcode data to get coordinates
+    // uses coordinates to get weather for that location
 
-const zipcode = prompt("What's your zipcode? ");
-const zipData = new XMLHttpRequest();
 const div = document.getElementById('weather-data');
 const title = document.getElementById('title');
 let longitude = 0.0;
 let latitude = 0.0;
-zipData.onreadystatechange = () => {
-    if (zipData.readyState === 4 && zipData.status === 200) {
-        const locationData = JSON.parse(zipData.responseText);
-        const city = locationData.places[0][ 'place name' ];
-        const state = locationData.places[0][ 'state abbreviation' ];
-        div.innerHTML = `<h3 id="location">${city}, ${state}</h3>`;
-        title.textContent = `Weather for ${city}`;
-        longitude = parseFloat(locationData.places[0].longitude);
-        latitude = parseFloat(locationData.places[0].latitude);
-        weatherDataLong.open('GET', `http://www.7timer.info/bin/api.pl?lon=${longitude}&lat=${latitude}&product=civil&output=json`);
-        weatherDataLong.send();
-        weatherDataSimple.open('GET', `http://www.7timer.info/bin/api.pl?lon=${longitude}&lat=${latitude}&product=civillight&output=json`);
-        weatherDataSimple.send();
+function getZip() {
+    const zipcode = prompt("What's your zipcode? ");
+    const zipData = new XMLHttpRequest();
+    zipData.onreadystatechange = () => {
+        if (zipData.readyState === 4 && zipData.status === 200) {
+            const locationData = JSON.parse(zipData.responseText);
+            const city = locationData.places[0][ 'place name' ];
+            const state = locationData.places[0][ 'state abbreviation' ];
+            div.innerHTML = `<h3 id="location">${city}, ${state}</h3>`;
+            title.textContent = `Weather for ${city}`;
+            longitude = parseFloat(locationData.places[0].longitude);
+            latitude = parseFloat(locationData.places[0].latitude);
+            getWeather(latitude, longitude);
+        }
     }
+    zipData.open('GET', `https://api.zippopotam.us/us/${zipcode}`);
+    zipData.send();
+}
+function success(pos){
+    const latitude = pos.coords.latitude;
+    const longitude = pos.coords.longitude;
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=6adef887fbe447abb28e7bd2833e97b3`)
+        .then(response => response.json())
+        .then(data => {
+            title.textContent = `Weather for ${data.results[0].components.city}`; 
+            div.innerHTML = `<h3 id="location">${data.results[0].components.city}, ${data.results[0].components.state_code}</h3>`;
+        });
+    getWeather(latitude, longitude);
+}
+function getWeather(latitude, longitude) {
+    weatherDataLong.open('GET', `http://www.7timer.info/bin/api.pl?lon=${longitude}&lat=${latitude}&product=civil&output=json`);
+    weatherDataLong.send();
+    weatherDataSimple.open('GET', `http://www.7timer.info/bin/api.pl?lon=${longitude}&lat=${latitude}&product=civillight&output=json`);
+    weatherDataSimple.send();
 }
 
-zipData.open('GET', `https://api.zippopotam.us/us/${zipcode}`);
-zipData.send();
+navigator.geolocation.getCurrentPosition(success, getZip);
 
 const weatherDataSimple = new XMLHttpRequest();
 weatherDataSimple.onreadystatechange = () => {
@@ -45,7 +63,6 @@ weatherDataSimple.onreadystatechange = () => {
             else day = days[0]; // but if the date obj works as it shoudl, will be wrong
 
             let icon = meteoData[ 'dataseries' ][i][ 'weather' ];
-            // if (icon == 'clear') icon = `<img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png">`;
             icon == 'clear' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png">`
             : icon == 'lightsnow' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/snow_light.png">`
             : icon == 'snow' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/snow.png">`
@@ -55,13 +72,11 @@ weatherDataSimple.onreadystatechange = () => {
             : icon == 'windy' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/fog.png">`
             : icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/cloudy.png">`; //else cloudy
             console.log(`http://www.7timer.info/bin/api.pl?lon=${longitude}&lat=${latitude}&product=civillight&output=json`);
-            // : icon == 
-            //condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4 ==
             forecast += `<div id="day${i+1}" class="day">
             <div class="day-name">${day}</div>
             <div class="icon">${icon}</div>
             <div class="minmax">
-            <h4 class="max">${max}°</h4>   <h4 class="min">${min}°</h4>
+            <h4 class="max">${parseFloat(max.toFixed(2))}°</h4> <h4 class="min">${parseFloat(min.toFixed(2))}°</h4>
             </div></div>`;
         }
             div.innerHTML += `<div id="week">${forecast}</div>`;

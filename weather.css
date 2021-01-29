@@ -103,3 +103,50 @@ img {
     "icon"
     "minmax";
 }
+@media (max-width: 675px) {
+    #weather-data {
+        display: grid;
+        grid-template-areas: 
+        "location . degree-div"
+        "week week";
+    }
+    #week {
+        grid-area: week;
+        display: grid;
+        grid-template-areas: 
+        "day1 day2 day3 day4" 
+        "day5 day6 day7 .";
+    }
+}
+@media (max-width: 450px) {
+    #week {
+        grid-area: week;
+        display: grid;
+        grid-template-areas: 
+        "day1 day2"
+        "day3 day4" 
+        "day5 day6" 
+        "day7 .";
+    }
+}
+@media (max-width: 250px) {
+    #weather-data {
+        display: grid;
+        grid-template-areas: 
+        "location" 
+        "degree-div"
+        "week";
+    }
+    #week {
+        grid-area: week;
+        display: grid;
+        grid-template-areas: 
+        "day1"
+        "day2"
+        "day3"
+        "day4" 
+        "day5"
+        "day6" 
+        "day7";
+    }
+}

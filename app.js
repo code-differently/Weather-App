@@ -7,7 +7,7 @@ const futureDates = document.querySelectorAll('.date');
 const icons = document.querySelectorAll('.icons');
 const minWeather = document.querySelectorAll('.min');
 const maxWeather = document.querySelectorAll('.max');
-
+const loader = document.querySelector('.loader');
 const weekday = new Array(7);
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -69,6 +69,7 @@ const getCurrentWeather = async (res) => {
 
 const getDailyWeather = async (res) => { 
     res.data.daily.map((i) => ({date: i.dt, min:i.temp.min, max:i.temp.max, icon:i.weather[0].icon})).map(convertDate).forEach(showDay);
+    loader.classList.add('loading--inactive');
 }
 
 function convertDate ({date, min, max, icon }){
@@ -83,4 +84,4 @@ function showDay({day, min,max,icon},index){
         maxWeather[index].innerText = Math.trunc(max);
 }
 
-getBrowsersLocation();
+getBrowsersLocation();  

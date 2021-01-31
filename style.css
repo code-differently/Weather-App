@@ -1,0 +1,15 @@
+body {
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    display: inline;
+}
+.cityState {
+    
+}
+
+.temperature {
+    font-size: 50px;
+}

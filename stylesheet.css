@@ -1,0 +1,15 @@
+* {
+
+    font-family:'Helvetica Neue', sans-serif;
+   
+}
+.container{
+display: flex;
+flex-direction: row;
+
+
+}
+#paragraph2{
+    padding-left: 12rem;
+
+}

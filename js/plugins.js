@@ -113,5 +113,5 @@ function SetCard(day, min, max, weatherPic) {
         `
     );
 
-    $forecast.addClass("d-inline-flex justify-content-between text-center");
+    $forecast.addClass("d-inline-flex justify-content-around text-center");
 }

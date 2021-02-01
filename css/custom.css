@@ -1,7 +1,3 @@
-@media (max-width: 576px) {
-
-}
-
  header,
  main
  {
@@ -52,7 +48,6 @@
  }
 
  .container {
-    
     grid-template-columns: 1fr;
     grid-template-rows: minmax(200px, auto) minmax(200px, auto);
     grid-template-areas: 

@@ -1,32 +1,41 @@
-const dom = document.querySelector(".placeName");
-const userZip = prompt("Enter Your Zip Code");
-const userLink = 'http://api.zippopotam.us/us/' + parseInt(userZip);
-const wLoc = 'https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=dcf230f9ec9de3db7414b60015a4b1bf';
+const locationDisplay = document.getElementById('location');
+const weatherDisplay = document.getElementById('weather');
 
-let longitude = 0.0;
-let latitude = 0.0;
+const userZip = prompt("What's your ZIP Code?");
+const userLink = 'http://api.zippopotam.us/us/' + parseInt(userZip);
+let userLon;
+let userLat;
+const weatherLink = 'http://www.7timer.info/bin/api.pl?output=json&product=civillight&lon=' + userLon + '&lat=' + userLat;
+
+// http://www.7timer.info/bin/api.pl?output=json&product=civillight&lon=39.5929&lat=-75.6515
 
 var client = new XMLHttpRequest();
 
-client.open("GET", userLink,);
+client.open("GET", userLink, true);
 client.onreadystatechange = function() {
-	if(client.readyState == 4) {
-    };
-    
-	if(client.readyState == 4 && client.status === 200) {		
+	if(client.readyState == 4 && client.status === 200) {
+
         let zipData = JSON.parse(client.responseText);
-        const {places: 
-            [{"place name": placeName, state: state, latitude: lat, longitude: lon}]
-             } = zipData;
-        dom.textContent = placeName + ", " + state;        
-        let request = client.open("GET", "wLoc");
-            //  console.log(request);
+        locationDisplay.innerHTML += `
+            <p>${zipData.places[0]['place name']}, ${zipData.places[0]['state abbreviation']}</p>
+        `;
+
+        userLon = `${zipData.places[0].longitude}`;
+        userLat = `${zipData.places[0].latitude}`;
+
+        let sevenTimer = new XMLHttpRequest();
+        sevenTimer.open("GET", weatherLink, true);
+        sevenTimer.onreadystatechange = function() {
+            if(sevenTimer.readyState == 4 && client.status === 200) {
+                let weatherData = JSON.parse(sevenTimer.responseText);
+                console.log(weatherData);
+                weatherDisplay.innerHTML += `
+                    ${weatherData.dataseries[0].temp2m.max}&deg
+                `;
+            }
+        }
+        sevenTimer.send();
 	}
-}
-
-
-// http://www.7timer.info/bin/api.pl?lon=39.5929&lat=-75.6515&product=civil&output=json
-// http://www.7timer.info/bin/api.pl?lon=39.5929&lat=-75.6515&product=civillight&output=json
-//  -75.6515 39.5929
+};  
 
 client.send();

@@ -1,0 +1,19 @@
+* {
+
+ display: block;
+ color: rgb(169, 175, 177); 
+ margin: Auto;  
+ margin-bottom: 60px;
+}
+
+title{
+    color: black;
+    font-size: 25px;
+    font-style: italic;
+    padding-left: right 25px;
+    font-weight: normal;
+}
+
+h1 {
+    color: rgb(41, 28, 226);
+}

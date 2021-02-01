@@ -21,15 +21,13 @@ function convertTemp(temp) {
           const {latitude, longitude} = position.coords; 
           const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=68824d84dff94b6a8921c156b462a3d1`)
           const data = await response.json();
-          
-          console.log(results);
 
-          const city1 = data.results[0].components.city;
+          const cityData = data.results[0].components.city;
           const stateData = data.results[0].components.state_code;
 
-          cityState.textContent = `${city1}, ${stateData}`;
+          cityState.textContent = `${cityData}, ${stateData}`;
 
-          currentTemp(city1, stateData);
+          currentTemp(latitude, longitude);
         }
         catch(error) {
           console.log(error);
@@ -40,12 +38,12 @@ function convertTemp(temp) {
 
 
 // Fetch weather at openweathermap api
-    const currentTemp = async (city, state) => {
+    const currentTemp = async (latitude, longitude) => {
       try {
-        const temp = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${state}&appid=0312d87f192d54ce3485295a535d403f`)
+        const temp = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&exclude={part}&appid=0312d87f192d54ce3485295a535d403f=0312d87f192d54ce3485295a535d403f`)
         const data = await temp.json();
 
-        let currTemp = convertTemp(data.main.temp);
+        let currTemp = convertTemp(data.current.temp);
 
         temperature.innerHTML = `${currTemp}&#x2109`;
 

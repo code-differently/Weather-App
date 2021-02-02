@@ -75,7 +75,6 @@ function DisplayLocation(longitude, latitude){
 
   };
 
-
 function NextSevenDays() {
     const $forecast = $('#forecast');
     $forecast.html("");
@@ -89,14 +88,12 @@ function NextSevenDays() {
         k++;
     }
     for(let j = 0; j < todaysDate; j++){
-        SetCard(i, weatherTemp[k].temp2m.min, weatherTemp[k].temp2m.max, weatherTemp[i].weather);
+        SetCard(0, weatherTemp[k].temp2m.min, weatherTemp[k].temp2m.max, weatherTemp[0].weather);
         k++;
     }
 
     
 }
-
-
 
 function SetCard(day, min, max, weatherPic) {
     $forecast.append(

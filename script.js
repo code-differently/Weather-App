@@ -5,9 +5,13 @@ const userZip = prompt("What's your ZIP Code?");
 const userLink = 'http://api.zippopotam.us/us/' + parseInt(userZip);
 let userLon;
 let userLat;
-const weatherLink = 'http://www.7timer.info/bin/api.pl?output=json&product=civillight&lon=' + userLon + '&lat=' + userLat;
 
-// http://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=xml&tzshift=0
+function convertTemp(weatherLink) {
+    const celsius = weatherLink -273;
+    let fahrenheit = Math.floor( celsius * ( 9 / 5 ) + 32 );
+    return fahrenheit;
+}
+
 
 var client = new XMLHttpRequest();
 
@@ -23,14 +27,16 @@ client.onreadystatechange = function() {
         userLon = `${zipData.places[0].longitude}`;
         userLat = `${zipData.places[0].latitude}`;
 
+        const weatherLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${userLat}&lon=${userLon}&exclude=minutely,hourly&appid=dcf230f9ec9de3db7414b60015a4b1bf`;
         let sevenTimer = new XMLHttpRequest();
         sevenTimer.open("GET", weatherLink, true);
         sevenTimer.onreadystatechange = function() {
             if(sevenTimer.readyState == 4 && client.status === 200) {
                 let weatherData = JSON.parse(sevenTimer.responseText);
                 console.log(weatherData);
+                let currentTemp = convertTemp(weatherData.current.temp);
                 weatherDisplay.innerHTML += `
-                    ${weatherData.dataseries[0].temp2m.max}&deg
+                    ${currentTemp}&deg
                 `;
             }
         }

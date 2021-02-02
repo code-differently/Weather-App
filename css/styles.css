@@ -1,12 +1,14 @@
-
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
 
 #weather {
     float: right;
     position: absolute;
     top: 20px;
     right: 40px;
-    border: 30px;
 }
 
 h1 {
@@ -23,3 +25,14 @@ h1 {
                  0 10px 10px rgba(0,0,0,.2),
                  0 20px 20px rgba(0,0,0,.15);
   }
+ 
+h3 {
+    margin-top: 1rem;
+    margin-left: 2rem;
+
+}
+
+.column {
+    margin: 1rem;
+    padding: 2px;
+}

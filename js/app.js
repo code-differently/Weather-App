@@ -1,13 +1,9 @@
 const locationDisplay = document.getElementById('location');
 const weatherDisplay = document.getElementById('weather');
 
-const userZip = prompt("What's your ZIP Code?");
+const userZip = prompt("Enter your Zipcode");
 const userLink = 'http://api.zippopotam.us/us/' + parseInt(userZip);
 
-let userLon;
-let userLat;
-
-// Convert cTof
 function convertTemp(weatherLink) {
     const celsius = weatherLink -273;
     let fahrenheit = Math.floor(celsius * (9/5) + 32);
@@ -28,7 +24,7 @@ client.onreadystatechange = function() {
         userLon = `${zipData.places[0].longitude}`;
         userLat = `${zipData.places[0].latitude}`;
 
-    const weatherLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${userLat}&lon=${userLon}&exclude=minutely,hourly&appid=dcf230f9ec9de3db7414b60015a4b1bf`;
+        const weatherLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${userLat}&lon=${userLon}&exclude=minutely,hourly&appid=dcf230f9ec9de3db7414b60015a4b1bf`;
         
         let sevenTimer = new XMLHttpRequest();
         sevenTimer.open("GET", weatherLink, true);

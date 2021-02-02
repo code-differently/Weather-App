@@ -27,8 +27,7 @@ let client = new XMLHttpRequest();
         
         let sevenTimer = new XMLHttpRequest();
         sevenTimer.open("GET", weatherLink, true);
-        sevenTimer.onreadystatechange = function() {
-
+        sevenTimer.onreadystatechange = function() {19720
             if(sevenTimer.readyState == 4 && sevenTimer.status === 200) {
                 let weatherData = JSON.parse(sevenTimer.responseText);
                 let currentTemp = convertTemp(weatherData.current.temp);

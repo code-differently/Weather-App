@@ -1,6 +1,6 @@
 const locationDisplay = document.getElementById('location');
 const weatherDisplay = document.getElementById('weather');
-
+const forecastDisaply= document.getElementById('sevenDay');
 const userZip = prompt("Enter your Zipcode");
 const userLink = 'http://api.zippopotam.us/us/' + parseInt(userZip);
 
@@ -11,14 +11,13 @@ function convertTemp(weatherLink) {
 }
 
 let client = new XMLHttpRequest();
-
-client.open("GET", userLink, true);
-client.onreadystatechange = function() {
+    client.open("GET", userLink, true);
+    client.onreadystatechange = function() {
 	if(client.readyState == 4 && client.status === 200) {
 
         let zipData = JSON.parse(client.responseText);
         locationDisplay.innerHTML += `
-            <p>${zipData.places[0]['place name']}, ${zipData.places[0]['state abbreviation']}</p>
+            ${zipData.places[0]['place name']}, ${zipData.places[0]['state abbreviation']}
         `;
       
         userLon = `${zipData.places[0].longitude}`;

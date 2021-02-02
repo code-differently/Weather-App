@@ -88,7 +88,7 @@ function NextSevenDays() {
         k++;
     }
     for(let j = 0; j < todaysDate; j++){
-        SetCard(0, weatherTemp[k].temp2m.min, weatherTemp[k].temp2m.max, weatherTemp[0].weather);
+        SetCard(j, weatherTemp[k].temp2m.min, weatherTemp[k].temp2m.max, weatherTemp[j].weather);
         k++;
     }
 

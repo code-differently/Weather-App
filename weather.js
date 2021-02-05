@@ -29,7 +29,8 @@ function getZip() {
 function success(pos){
     const latitude = pos.coords.latitude;
     const longitude = pos.coords.longitude;
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=6adef887fbe447abb28e7bd2833e97b3`)
+    const key = config.geo_key;
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${geo_key}`)
         .then(response => response.json())
         .then(data => {
             title.textContent = `Weather for ${data.results[0].components.city}`; 
@@ -71,6 +72,7 @@ weatherDataSimple.onreadystatechange = () => {
             : icon == 'thunderstorm' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/thunderstorms.png">`
             : icon == 'foggy' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/fog.png">`
             : icon == 'windy' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/windy.png">`
+            : icon == 'partlycloudy' ? icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png">`
             : icon = `<img src="https://ssl.gstatic.com/onebox/weather/48/cloudy.png">`; //else cloudy
             console.log(`http://www.7timer.info/bin/api.pl?lon=${longitude}&lat=${latitude}&product=civillight&output=json`);
             forecast += `<div id="day${i+1}" class="day">

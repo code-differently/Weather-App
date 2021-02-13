@@ -1,9 +1,6 @@
-// step 1 - create response object
 let zipCode = new XMLHttpRequest();
 let zip = prompt("enter zipcode to get city & state");
 
-
-// step 2 - create call back
     zipCode.onreadystatechange = function() {
         if (zipCode.readyState === 4 && zipCode.status === 200) {
             let response = JSON.parse(zipCode.responseText);

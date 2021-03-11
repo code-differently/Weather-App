@@ -23,7 +23,7 @@ let client = new XMLHttpRequest();
         userLon = `${zipData.places[0].longitude}`;
         userLat = `${zipData.places[0].latitude}`;
 
-        const weatherLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${userLat}&lon=${userLon}&exclude=minutely,hourly&appid=dcf230f9ec9de3db7414b60015a4b1bf`;
+        const weatherLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${userLat}&lon=${userLon}&exclude=minutely,hourly&appid=${apikey}`;
         
         let sevenTimer = new XMLHttpRequest();
         sevenTimer.open("GET", weatherLink, true);

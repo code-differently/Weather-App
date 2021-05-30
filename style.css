@@ -1,0 +1,14 @@
+body {
+    font-family: sans-serif, 'Segoe-UI';
+    font-size: 24px;
+    padding: 20px;
+    position:relative;
+}
+
+#weather {
+    float: right;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+}
+

@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+.column {
+    margin: 1rem;
+    padding: 2px;
+}
+
+h1 {
+    text-shadow: 0 1px 0 #ccc,
+                 0 2px 0 #c9c9c9,
+                 0 3px 0 #bbb,
+                 0 4px 0 #b9b9b9,
+                 0 5px 0 #aaa,
+                 0 6px 1px rgba(0,0,0,.1),
+                 0 0 5px rgba(0,0,0,.1),
+                 0 1px 3px rgba(0,0,0,.3),
+                 0 3px 5px rgba(0,0,0,.2),
+                 0 5px 10px rgba(0,0,0,.25),
+                 0 10px 10px rgba(0,0,0,.2),
+                 0 20px 20px rgba(0,0,0,.15);
+}
+ 
+h2 {
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+h2#weather {
+    float: right;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    text-shadow: 0 1px 0 #ccc,
+                 0 2px 0 #c9c9c9,
+                 0 3px 0 #bbb,
+                 0 4px 0 #b9b9b9,
+                 0 5px 0 #aaa,
+                 0 6px 1px rgba(0,0,0,.1),
+                 0 0 5px rgba(0,0,0,.1),
+                 0 1px 3px rgba(0,0,0,.3),
+                 0 3px 5px rgba(0,0,0,.2),
+                 0 5px 10px rgba(0,0,0,.25),
+                 0 10px 10px rgba(0,0,0,.2),
+                 0 20px 20px rgba(0,0,0,.15);
+}
+
+label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: .4rem 0;
+}
+
+.container {
+    display: grid;
+    margin:1rem;
+    justify-content: space-evenly;
+    grid-gap: 1.5rem;
+}
+
+.col {
+    grid-template-columns: auto auto auto auto;
+}
+
+
+/* Card Properties */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    padding: 1rem;
+    border-style:solid;
+    border-radius:0%;
+}
+
+h4.pName {
+    display: float;
+    float: left;
+    padding-right: 2rem;
+    font-weight: bold;
+}
+
+h4.pNum {
+    display: float;
+    float: right;
+    padding-left: 2rem;
+    font-weight: bold;  
+}
+
+img {
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 12rem;
+}
+
+/* .line {
+    height: 1.75rem;
+    border-bottom: .1rem inset lightgrey;
+    border-bottom-width: 90%;
+} */
